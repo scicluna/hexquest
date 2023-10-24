@@ -19,10 +19,8 @@ const HexSchema = new mongoose.Schema({
 
 HexSchema.index({ mapId: 1 });
 HexSchema.pre('save', async function (next) {
-    // This refers to the Hex document being saved
     const hex = this;
-
-    if (hex.isNew) { // Check if the Hex is a new document
+    if (hex.isNew) {
         await Map.findByIdAndUpdate(
             hex.mapId,
             { $push: { hexes: hex._id } }
