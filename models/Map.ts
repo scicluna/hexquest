@@ -1,4 +1,5 @@
 import mongoose, { model } from "mongoose";
+import Hex from "./Hex";
 
 const MapSchema = new mongoose.Schema({
     userId: {
@@ -13,5 +14,14 @@ const MapSchema = new mongoose.Schema({
 })
 
 MapSchema.index({ userId: 1 });
+
+//handle cascading deletes
+MapSchema.pre('deleteOne', async function (next) {
+    const map = this as any;
+    await Hex.deleteMany({ mapId: map._id });
+
+    next();
+});
+
 const Map = mongoose.models.Map || model("Map", MapSchema)
 export default Map

@@ -12,8 +12,6 @@ export default async function payment({ params }: { params: { userid: string } }
             <div className="fixed top-2 right-2">
                 <UserButton />
             </div>
-
-
             <section className="flex flex-col gap-4 dark:text-white">
                 <PriceGallery />
                 <p className="text-center">or enter your own key</p>

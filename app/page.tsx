@@ -12,7 +12,6 @@ export default async function Home() {
 
   if (userId) {
     const hexQuestUser: HexUser = await updateUserInformation();
-    console.log(hexQuestUser)
 
     if (hexQuestUser.credits < 20) {
       redirect(`/payment/${hexQuestUser._id}`)
