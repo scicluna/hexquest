@@ -15,9 +15,9 @@ export default async function Home() {
     console.log(hexQuestUser)
 
     if (hexQuestUser.credits < 20) {
-      redirect('/payment')
+      redirect(`/payment/${hexQuestUser._id}`)
     } else {
-      redirect('/worlds')
+      redirect(`/worlds/${hexQuestUser._id}`)
     }
   }
 
