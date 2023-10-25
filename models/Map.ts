@@ -7,6 +7,7 @@ const MapSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    name: String,
     hexes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Hex'
