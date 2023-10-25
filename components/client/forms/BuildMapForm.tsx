@@ -4,9 +4,9 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { Label } from "../ui/label"
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
+import { Label } from "../../ui/label"
+import { Input } from "../../ui/input"
+import { Button } from "../../ui/button"
 import { useState } from "react"
 import { createWorld } from "@/utils/worldcrud/createWorld"
 import { useAuth } from "@clerk/nextjs"

@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
-export default async function payment({ params }: { params: { userid: string } }) {
+export default async function Payment({ params }: { params: { userid: string } }) {
 
     return (
         <main className="h-[100dvh] dark:bg-stone-950 w-full flex justify-center items-center relative">

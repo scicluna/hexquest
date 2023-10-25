@@ -1,5 +1,5 @@
-import BuildMapForm from "@/components/client/BuildMapForm";
-import EditMapForm from "@/components/client/EditMapForm";
+import BuildMapForm from "@/components/client/forms/BuildMapForm";
+import EditMapForm from "@/components/client/forms/EditMapForm";
 import { getWorlds } from "@/utils/worldcrud/getWorlds";
 import { UserButton } from "@clerk/nextjs";
 import { Edit } from "lucide-react";

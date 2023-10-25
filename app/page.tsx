@@ -3,7 +3,7 @@
 //Get userid from clerk -> check if it exists in our db. if not, add it. -> check user profile for credits. -> no credits or api key?
 //redirect towards payment options -> otherwise, redirect to map list
 
-import { updateUserInformation } from "@/utils/updateUserInformation";
+import { updateUser } from "@/utils/usercrud/updateUser";
 import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 
@@ -11,7 +11,7 @@ export default async function Home() {
   const { userId } = auth()
 
   if (userId) {
-    const hexQuestUser: HexUser = await updateUserInformation();
+    const hexQuestUser: HexUser = await updateUser();
 
     if (hexQuestUser.credits < 20) {
       redirect(`/payment/${hexQuestUser._id}`)

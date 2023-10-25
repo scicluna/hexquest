@@ -2,12 +2,13 @@
 //if it doesn't find it, we build out a user instead
 
 import { auth } from "@clerk/nextjs";
+import { getUser } from "./getUser";
 
 //either way we return the object
-export async function updateUserInformation() {
+export async function updateUser() {
     const { getToken } = auth()
     const token = await getToken()
-    const user = await userIsInDatabase(token);
+    const user = await getUser();
 
     if (user) {
         return await user
@@ -21,22 +22,4 @@ export async function updateUserInformation() {
         },
     })
     return await newUser.json()
-}
-
-async function userIsInDatabase(token: string | null) {
-    try {
-        const user = await fetch(`${process.env.URL}/api/user`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        if (user) {
-            return await user.json()
-        } else {
-            return null
-        }
-    } catch {
-        return null
-    }
 }
