@@ -22,7 +22,7 @@ export default async function Worlds({ params }: { params: { userid: string } })
                     <div className="flex">
                         <div className="flex flex-col p-4 gap-2 text-2xl font-bold text-center">
                             {worlds.map(map => (
-                                <div key={map._id} className="flex gap-2 justify-center">
+                                <div key={map._id} className="flex gap-2 justify-center items-center">
                                     <Link href={`${process.env.URL}/worlds/${params.userid}/${map._id}`}>{map.name}</Link>
                                     <EditMapForm userId={params.userid} map={map} />
                                 </div>
