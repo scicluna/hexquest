@@ -37,8 +37,8 @@ export default function BuildMapForm({ userid }: { userid: string }) {
                         onSubmit={generateMap}>
                         <Label>Map Name:</Label>
                         <Input type="text" value={mapName} onChange={e => setMapName(e.target.value)} />
-                        <PopoverClose>
-                            <Button type="submit">Submit</Button>
+                        <PopoverClose type="submit" className="bg-stone-100 p-2 rounded-xl text-blue-500 hover:bg-stone-200 hover:animate-pulse">
+                            Submit
                         </PopoverClose>
                     </form>
                 </PopoverContent>
