@@ -25,7 +25,7 @@ export async function POST(req: Request, { params }: { params: { userid: string 
     const map = await Map.create({
         userId: userid,
         name: mapName,
-        hexes: []
+        hexChunks: []
     })
 
     return new Response(JSON.stringify(map), { status: 200 })

@@ -12,6 +12,7 @@ export async function generateHexChunk(userId: string, mapId: string) {
             'Content-Type': 'application/json'
         }
     })
+    console.log(chunk)
 
     return chunk.json()
 }

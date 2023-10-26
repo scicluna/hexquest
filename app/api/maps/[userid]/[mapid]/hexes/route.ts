@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import Map from "@/models/Map";
 
-//get all hexes from a map
+// Get all hexes from a map
 export async function GET(req: Request, { params }: { params: { userid: string, mapid: string } }) {
     const { userId } = auth();
     if (!userId) return NextResponse.redirect('/sign-in');
@@ -10,7 +10,14 @@ export async function GET(req: Request, { params }: { params: { userid: string, 
     const userid = params.userid
     const mapid = params.mapid
 
+    // Fetch the Map, then populate the hexChunks and the hexes within each HexChunk
     const map = await Map.findOne({ _id: mapid, userId: userid })
+        .populate({
+            path: 'hexChunks',
+            populate: {
+                path: 'hexes'
+            }
+        });
 
-    return new Response(JSON.stringify(map.hexes), { status: 200 })
+    return new Response(JSON.stringify(map), { status: 200 });
 }

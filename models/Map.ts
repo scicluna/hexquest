@@ -1,5 +1,5 @@
 import mongoose, { model } from "mongoose";
-import Hex from "./Hex";
+import HexChunk from "./HexChunk";  // Ensure you're importing HexChunk 
 
 const MapSchema = new mongoose.Schema({
     userId: {
@@ -8,21 +8,23 @@ const MapSchema = new mongoose.Schema({
         required: true
     },
     name: String,
-    hexes: [{
+    hexChunks: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Hex'
+        ref: 'HexChunk'
     }]
-})
+});
 
 MapSchema.index({ userId: 1 });
 
-//handle cascading deletes
+// Handle cascading deletes for HexChunks when a Map is removed
 MapSchema.pre('deleteOne', async function (next) {
     const map = this as any;
-    await Hex.deleteMany({ mapId: map._id });
+
+    // Remove all HexChunks associated with this map
+    await HexChunk.deleteMany({ _id: { $in: map.hexChunks } });
 
     next();
 });
 
-const Map = mongoose.models.Map || model("Map", MapSchema)
-export default Map
+const Map = mongoose.models.Map || model("Map", MapSchema);
+export default Map;

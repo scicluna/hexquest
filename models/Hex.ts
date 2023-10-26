@@ -1,10 +1,10 @@
 import mongoose, { model } from "mongoose";
-import Map from "./Map";
+import HexChunk from "./HexChunk";
 
 const HexSchema = new mongoose.Schema({
-    mapId: {
+    hexChunkId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Map',
+        ref: 'HexChunk',
         required: true
     },
     history: [String],
@@ -17,12 +17,12 @@ const HexSchema = new mongoose.Schema({
     // ... Add other fields as needed
 })
 
-HexSchema.index({ mapId: 1 });
+HexSchema.index({ hexChunkId: 1 });
 HexSchema.pre('save', async function (next) {
     const hex = this;
     if (hex.isNew) {
-        await Map.findByIdAndUpdate(
-            hex.mapId,
+        await HexChunk.findByIdAndUpdate(
+            hex.hexChunkId,
             { $push: { hexes: hex._id } }
         );
     }

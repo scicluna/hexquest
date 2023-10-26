@@ -3,18 +3,25 @@ type HexUser = {
     clerkId: string
     email: string
     credits: number
+    apiKey: stringtring
 }
 
 type HexMap = {
     _id: string
     name: string
     userId: string
-    hexes: Hex[]
+    hexChunks: HexChunk[]
 }
 
 type Hex = {
     _id: string
     history: string[]
-    terrain: 'M' | 'F' | 'P' | 'C' | 'O' | 'L' | 'B' | 'H' | 'D' | 'J' | '?'
+    terrainType: 'M' | 'F' | 'P' | 'C' | 'O' | 'L' | 'B' | 'H' | 'D' | 'J' | '?'
     feature: string
+}
+
+type HexChunk = {
+    _id: string
+    mapId: string
+    hexes: Hex[]
 }

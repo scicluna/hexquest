@@ -23,17 +23,17 @@ export default async function Map({ params }: MapProps) {
 
     const user: HexUser = await getUser();
     if (!user) redirect('/sign-in');
-
     if (!userId || user._id !== params.userid) redirect('/sign-in');
 
     //return hexes or []
-    const hexes: Hex[][] | any[] = await getHexes(params.userid, params.mapid);
-    if (hexes.length === 0) {
-        const chunk: Hex[] = await generateHexChunk(params.userid, params.mapid);
-        hexes.push(chunk);
+    const hexes: HexMap = await getHexes(params.userid, params.mapid);
+
+    if (hexes.hexChunks.length === 0) {
+        const chunk: HexChunk = await generateHexChunk(params.userid, params.mapid);
+        hexes.hexChunks.push(chunk);
     }
 
-    console.log(hexes)
-
-    return <MapClient user={user} hexes={hexes} />
+    return (
+        <MapClient user={user} hexes={hexes} />
+    )
 }
