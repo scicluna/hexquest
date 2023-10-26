@@ -1,5 +1,6 @@
 import mongoose, { model } from "mongoose";
 import Hex from "./Hex";
+import Map from "./Map";
 
 const HexChunkSchema = new mongoose.Schema({
     mapId: {
@@ -19,7 +20,17 @@ HexChunkSchema.pre('deleteOne', async function (next) {
 
     next();
 });
+HexChunkSchema.pre('save', async function (next) {
+    const hexChunk = this;
+    if (hexChunk.isNew) {
+        await Map.findByIdAndUpdate(
+            hexChunk.mapId,
+            { $push: { hexChunks: hexChunk._id } }
+        );
+    }
 
+    next();
+});
 
 const HexChunk = mongoose.models.HexChunk || model("HexChunk", HexChunkSchema);
 export default HexChunk;

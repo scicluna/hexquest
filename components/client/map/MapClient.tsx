@@ -15,6 +15,7 @@ export default function MapClient({ user, hexes }: MapClientProps) {
 
     function deductCredits(amt: number) {
         setCredits(credits - amt);
+        //Some kind of DB call to handle credit change
     }
 
     return (

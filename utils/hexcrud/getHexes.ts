@@ -10,6 +10,6 @@ export async function getHexes(userId: string, mapId: string) {
             'Content-Type': 'application/json'
         }
     })
-    console.log(hexes)
+
     return hexes.json()
 }
