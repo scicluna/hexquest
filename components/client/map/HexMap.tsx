@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react";
-import Hex from "./Hex";
+import Hex from "./hex/Hex";
+import HexChunk from "./hex/HexChunk";
 
 type HexMapProps = {
     hexes: HexMap
@@ -10,16 +11,11 @@ type HexMapProps = {
 
 export default function HexMapStage({ hexes, deductCredits }: HexMapProps) {
     const [hexMap, setHexMap] = useState<HexMap>(hexes);
-    console.log(hexMap)
     return (
-        <section className="h-full w-full">
-            {hexMap.hexChunks.map((hexChunk: HexChunk) => (
-                <div key={hexChunk._id} className="grid grid-cols-4 grid-rows-4">
-                    {hexChunk.hexes.map((hex: Hex) => (
-                        <Hex key={hex._id} hex={hex} />
-                    ))}
-                </div>
+        <section className="h-full w-full bg-black">
+            {hexMap.hexChunks.map((hexChunk: HexChunk, i) => (
+                <HexChunk key={hexChunk._id} hexChunk={hexChunk} chunkNo={i} />
             ))}
         </section>
     )
-}
+} 

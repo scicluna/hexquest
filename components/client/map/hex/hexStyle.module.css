@@ -1,0 +1,31 @@
+.hexagon {
+    position: relative;
+    width: calc((1.732/2) * var(--hex-size));
+    height: var(--hex-size);
+    background-color: #000000;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    margin: 1px;
+    border: transparent;
+}
+
+.hexagon::before,
+.hexagon::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    border-left: calc(var(--hex-size) / 2) solid transparent;
+    border-right: calc(var(--hex-size) / 2) solid transparent;
+    z-index: -1;
+}
+
+.hexagon::before {
+    top: calc(-1.732 * var(--hex-size) / 2);
+    /* negative of (sqrt(3)/2 * width) */
+    border-bottom: calc(1.732 * var(--hex-size) / 2) solid #eee;
+}
+
+.hexagon::after {
+    bottom: calc(-1.732 * var(--hex-size) / 2);
+    /* negative of (sqrt(3)/2 * width) */
+    border-top: calc(1.732 * var(--hex-size) / 2) solid #eee;
+}

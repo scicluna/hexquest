@@ -10,7 +10,7 @@ const HexSchema = new mongoose.Schema({
     history: [String],
     terrainType: {
         type: String,
-        enum: ['M', 'F', 'P', 'C', 'O', 'L', 'B', 'H', 'D', 'J', '?'],
+        enum: ['M', 'F', 'P', 'C', 'O', 'L', 'B', 'H', 'D', 'J', 'Ma', '?'],
         required: true
     },
     feature: String
