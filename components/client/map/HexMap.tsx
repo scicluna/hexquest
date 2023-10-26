@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react";
-import Hex from "./hex/Hex";
 import HexChunk from "./hex/HexChunk";
 
 type HexMapProps = {
@@ -12,9 +11,9 @@ type HexMapProps = {
 export default function HexMapStage({ hexes, deductCredits }: HexMapProps) {
     const [hexMap, setHexMap] = useState<HexMap>(hexes);
     return (
-        <section className="h-full w-full bg-black">
+        <section className="h-full w-full">
             {hexMap.hexChunks.map((hexChunk: HexChunk, i) => (
-                <HexChunk key={hexChunk._id} hexChunk={hexChunk} chunkNo={i} />
+                <HexChunk key={hexChunk._id} hexChunk={hexChunk} chunkNo={i} allChunks={hexes.hexChunks} />
             ))}
         </section>
     )

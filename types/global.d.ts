@@ -24,4 +24,8 @@ type HexChunk = {
     _id: string
     mapId: string
     hexes: Hex[]
+    position: {
+        x: number
+        y: number
+    }
 }

@@ -8,6 +8,10 @@ const HexChunkSchema = new mongoose.Schema({
         ref: 'Map',
         required: true
     },
+    position: {
+        x: { type: Number, required: true },
+        y: { type: Number, required: true }
+    },
     hexes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Hex'

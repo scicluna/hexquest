@@ -11,6 +11,10 @@ export async function POST(req: Request, { params }: { params: { userid: string,
     const hexChunk = await HexChunk.create({
         mapId: params.mapid,
         hexes: [],
+        position: {
+            x: 0,
+            y: 0
+        }
     });
 
     // Step 2: Create 16 hexes and associate them with the HexChunk
