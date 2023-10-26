@@ -14,7 +14,7 @@ export default function HexPhantom({ pos, hexSize, chunkSize, visible }: HexPhan
             marginLeft: `${Math.floor(pos / chunkSize) % 2 === 0 ? hexSize * (1.732 / 2 / 2) : 0}rem`,
             marginRight: `${Math.floor(pos / chunkSize) % 2 === 0 ? -hexSize * (1.732 / 2 / 2) : 0}rem`
         } as React.CSSProperties}
-            className={` ${style.hexagon} ${visible ? 'visible' : 'invisible'}`} >
+            className={` ${style.hexagon} ${visible ? 'visible z-50' : 'invisible -z-10'}`} >
         </div>
     )
 }

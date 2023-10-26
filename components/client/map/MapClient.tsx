@@ -20,7 +20,7 @@ export default function MapClient({ user, hexes }: MapClientProps) {
 
     return (
         <main className="h-full w-full">
-            <div className="fixed top-2 right-2 flex gap-4 items-center">
+            <div className="fixed top-2 right-2 flex gap-4 items-center dark:text-white">
                 {!user.apiKey && <p>Credits: {credits}</p>}
                 <UserButton />
             </div>

@@ -45,7 +45,7 @@ export default function HexChunk({ hexChunk, chunkNo, allChunks }: HexChunkProps
         <div key={hexChunk._id} className="h-fit w-fit" style={{ position: 'absolute', top: `calc(50% + ${yOffset}px)`, left: `calc(50% + ${xOffset}px)` }}>
 
             {/* Phantom Hex Grid */}
-            <div className={`h-[${HEXSIZE}rem] max-w-fit gap-x-[1px] grid absolute -translate-x-1/2 -translate-y-1/2`} style={{ gridTemplateColumns: `repeat(${(CHUNKDIMENSIONS + 3)}, 1fr)`, zIndex: 0, top: `-${verticalOffset / 2}rem`, left: `${horizontalOffset}rem` }}>
+            <div className={`h-[${HEXSIZE}rem] max-w-fit gap-x-[1px] grid absolute -translate-x-1/2 -translate-y-1/2`} style={{ gridTemplateColumns: `repeat(${(CHUNKDIMENSIONS + 3)}, 1fr)`, top: `-${verticalOffset / 2}rem`, left: `${horizontalOffset}rem` }}>
                 {Array.from({ length: (CHUNKDIMENSIONS + 3) ** 2 }).map((_, i) => (
                     isBorder((CHUNKDIMENSIONS + 3), i)
                         ?
@@ -56,7 +56,7 @@ export default function HexChunk({ hexChunk, chunkNo, allChunks }: HexChunkProps
             </div>
 
             {/* Actual Hex Grid */}
-            <div className={`h-[${HEXSIZE}rem] max-w-fit gap-x-[1px] grid absolute -translate-x-1/2 -translate-y-1/2`} style={{ gridTemplateColumns: `repeat(${CHUNKDIMENSIONS}, 1fr)`, zIndex: 1 }} key={chunkNo}>
+            <div className={`pointer-events-none h-[${HEXSIZE}rem] max-w-fit gap-x-[1px] grid absolute -translate-x-1/2 -translate-y-1/2`} style={{ gridTemplateColumns: `repeat(${CHUNKDIMENSIONS}, 1fr)` }} key={chunkNo}>
                 {chunkRef.current.hexes.map((hex: Hex, i) => (
                     <Hex hex={hex} pos={i} chunkNo={chunkNo} adjHexes={getAdjacentHexes(i, CHUNKDIMENSIONS, hexChunk.hexes, { x: hexChunk.position.x, y: hexChunk.position.y }, allChunks)} hexSize={HEXSIZE} chunkSize={CHUNKDIMENSIONS} key={`${chunkNo + '-' + i}`} />
                 ))}
