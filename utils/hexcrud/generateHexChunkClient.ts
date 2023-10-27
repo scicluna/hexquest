@@ -1,9 +1,10 @@
-import { auth } from "@clerk/nextjs"
+import { useAuth } from "@clerk/nextjs"
 
-export async function generateHexChunk(userId: string, mapId: string, x: number, y: number) {
-    const { getToken } = auth()
-    const token = await getToken()
+export async function generateHexChunkClient(userId: string, mapId: string, x: number, y: number, token: string | null) {
 
+    if (!token) {
+        console.error("INVALID TOKEN")
+    }
     //returns an array of hex objects
     const chunk = await fetch(`${process.env.URL || ''}/api/maps/${userId}/${mapId}/hexchunk`, {
         method: 'POST',
@@ -16,6 +17,7 @@ export async function generateHexChunk(userId: string, mapId: string, x: number,
             y
         })
     })
+    console.log(chunk)
 
     return chunk.json()
 }

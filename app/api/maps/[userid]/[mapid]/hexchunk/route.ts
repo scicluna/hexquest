@@ -4,6 +4,9 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request, { params }: { params: { userid: string, mapid: string } }) {
+    const body = await req.json();
+    console.log(body)
+
     const { userId } = auth();
     if (!userId) return NextResponse.redirect('/sign-in');
 
@@ -12,8 +15,8 @@ export async function POST(req: Request, { params }: { params: { userid: string,
         mapId: params.mapid,
         hexes: [],
         position: {
-            x: 0,
-            y: 0
+            x: body.x || 0,
+            y: body.y || 0
         }
     });
 

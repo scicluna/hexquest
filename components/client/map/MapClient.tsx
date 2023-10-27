@@ -6,11 +6,12 @@ import HexMap from "./HexMap"
 
 type MapClientProps = {
     user: HexUser
+    mapid: string
     hexes: HexMap
 }
 
 //for every array of hexes, we need a 4x4 grid of hexes
-export default function MapClient({ user, hexes }: MapClientProps) {
+export default function MapClient({ user, mapid, hexes }: MapClientProps) {
     const [credits, setCredits] = useState(user.credits);
 
     function deductCredits(amt: number) {
@@ -19,12 +20,12 @@ export default function MapClient({ user, hexes }: MapClientProps) {
     }
 
     return (
-        <main className="h-full w-full">
+        <main className="">
             <div className="fixed top-2 right-2 flex gap-4 items-center dark:text-white">
                 {!user.apiKey && <p>Credits: {credits}</p>}
                 <UserButton />
             </div>
-            <HexMap hexes={hexes} deductCredits={deductCredits} />
+            <HexMap hexUser={user} mapid={mapid} hexes={hexes} deductCredits={deductCredits} />
         </main>
     )
 }

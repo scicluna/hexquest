@@ -29,11 +29,11 @@ export default async function Map({ params }: MapProps) {
     const hexes: HexMap = await getHexes(params.userid, params.mapid);
 
     if (hexes.hexChunks.length === 0) {
-        const chunk: HexChunk = await generateHexChunk(params.userid, params.mapid);
+        const chunk: HexChunk = await generateHexChunk(params.userid, params.mapid, 0, 0);
         hexes.hexChunks.push(chunk);
     }
 
     return (
-        <MapClient user={user} hexes={hexes} />
+        <MapClient user={user} mapid={params.mapid} hexes={hexes} />
     )
 }
