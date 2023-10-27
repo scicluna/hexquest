@@ -53,7 +53,7 @@ export default function HexChunk({ hexUser, mapid, hexChunk, chunkNo, allChunks,
             <PhantomChunk hexUser={hexUser} hexChunk={hexChunk} CHUNKDIMENSIONS={CHUNKDIMENSIONS} HEXSIZE={HEXSIZE} addHexChunk={addHexChunk} borderDirection={borderDirection} horizontalOffset={horizontalOffset} verticalOffset={verticalOffset} mapid={mapid} />
 
             {/* Actual Hex Grid */}
-            <div className={`pointer-events-none h-[${HEXSIZE}rem] max-w-fit gap-x-[1px] grid absolute -translate-x-1/2 -translate-y-1/2`} style={{ gridTemplateColumns: `repeat(${CHUNKDIMENSIONS}, 1fr)` }} key={chunkNo}>
+            <div className={`pointer-events-none h-[${HEXSIZE}rem] max-w-fit gap-x-[1px] grid absolute -translate-x-1/2 -translate-y-1/2 z-20`} style={{ gridTemplateColumns: `repeat(${CHUNKDIMENSIONS}, 1fr)` }} key={chunkNo}>
                 {chunkRef.current.hexes.map((hex: Hex, i) => (
                     <Hex hex={hex} pos={i} chunkNo={chunkNo} adjHexes={getAdjacentHexes(i, CHUNKDIMENSIONS, hexChunk.hexes, { x: hexChunk.position.x, y: hexChunk.position.y }, allChunks)} hexSize={HEXSIZE} chunkSize={CHUNKDIMENSIONS} key={`${chunkNo + '-' + i}`} />
                 ))}

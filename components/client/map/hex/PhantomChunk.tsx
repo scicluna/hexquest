@@ -22,7 +22,7 @@ type directions = {
 
 export default function PhantomChunk({ hexUser, mapid, hexChunk, addHexChunk, CHUNKDIMENSIONS, HEXSIZE, borderDirection, verticalOffset, horizontalOffset }: PhantomChunkProps) {
     return (
-        <div className={`pointer-events-none h-[${HEXSIZE}rem] max-w-fit gap-x-[1px] grid absolute -translate-x-1/2 -translate-y-1/2 -z-40`} style={{ gridTemplateColumns: `repeat(${(CHUNKDIMENSIONS + 3)}, 1fr)`, top: `-${verticalOffset / 2}rem`, left: `${horizontalOffset}rem` }}>
+        <div className={`pointer-events-none h-[${HEXSIZE}rem] max-w-fit gap-x-[1px] grid absolute -translate-x-1/2 -translate-y-1/2 z-10`} style={{ gridTemplateColumns: `repeat(${(CHUNKDIMENSIONS + 3)}, 1fr)`, top: `-${verticalOffset / 2}rem`, left: `${horizontalOffset}rem` }}>
             {
                 Array.from({ length: (CHUNKDIMENSIONS + 3) ** 2 }).map((_, i) => (
                     <HexPhantom user={hexUser} pos={i} mapid={mapid}
