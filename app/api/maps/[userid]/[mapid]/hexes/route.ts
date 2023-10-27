@@ -12,12 +12,7 @@ export async function GET(req: Request, { params }: { params: { userid: string, 
 
     // Fetch the Map, then populate the hexChunks and the hexes within each HexChunk
     const map = await Map.findOne({ _id: mapid, userId: userid })
-        .populate({
-            path: 'hexChunks',
-            populate: {
-                path: 'hexes'
-            }
-        });
+        .populate('hexes');
 
     return new Response(JSON.stringify(map), { status: 200 });
 }

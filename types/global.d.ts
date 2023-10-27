@@ -10,7 +10,7 @@ type HexMap = {
     _id: string
     name: string
     userId: string
-    hexChunks: HexChunk[]
+    hexes: Hex[]
 }
 
 type Hex = {
@@ -18,12 +18,6 @@ type Hex = {
     history: string[]
     terrainType: 'M' | 'F' | 'P' | 'C' | 'O' | 'L' | 'H' | 'D' | 'J' | 'Ma' | '?'
     feature: string
-}
-
-type HexChunk = {
-    _id: string
-    mapId: string
-    hexes: Hex[]
     position: {
         x: number
         y: number

@@ -1,5 +1,5 @@
 import mongoose, { model } from "mongoose";
-import HexChunk from "./HexChunk";  // Ensure you're importing HexChunk 
+import Hex from "./Hex";
 
 const MapSchema = new mongoose.Schema({
     userId: {
@@ -8,9 +8,9 @@ const MapSchema = new mongoose.Schema({
         required: true
     },
     name: String,
-    hexChunks: [{
+    hexes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'HexChunk'
+        ref: 'Hex'
     }]
 });
 
@@ -21,7 +21,7 @@ MapSchema.pre('deleteOne', async function (next) {
     const map = this as any;
 
     // Remove all HexChunks associated with this map
-    await HexChunk.deleteMany({ _id: { $in: map.hexChunks } });
+    await Hex.deleteMany({ _id: { $in: map.hexes } });
 
     next();
 });

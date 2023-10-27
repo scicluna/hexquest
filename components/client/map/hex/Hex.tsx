@@ -5,25 +5,20 @@ import Image from 'next/image'
 
 type HexProps = {
     hex: Hex
-    pos: number
-    chunkNo: number
-    hexSize: number
-    chunkSize: number
+    HEXSIZE: number
     adjHexes: AdjacentHexes
 }
 
-export default function Hex({ hex, pos, chunkNo, chunkSize, hexSize, adjHexes }: HexProps) {
+export default function Hex({ hex, HEXSIZE, adjHexes }: HexProps) {
     const image = getImage(hex);
 
     return (
         <div style={{
-            "--hex-size": `${hexSize}rem`, marginBottom: `${-hexSize * .25}rem`,
-            marginLeft: `${Math.floor(pos / chunkSize) % 2 === 0 ? hexSize * (1.732 / 2 / 2) : 0}rem`,
-            marginRight: `${Math.floor(pos / chunkSize) % 2 === 0 ? -hexSize * (1.732 / 2 / 2) : 0}rem`
+            "--hex-size": `${HEXSIZE}rem`, top: `50% + ${HEXSIZE * hex.position.y}rem`, left: `50% + ${HEXSIZE * hex.position.x}rem`,
         } as React.CSSProperties}
             className={`${style.hexagon} z-50 pointer-events-auto`} >
             <div className='relative h-full w-full point cursor-pointer hover:scale-105 hover:animate-pulse transition-all z-50'>
-                <Image src={image} alt={'map tile'} height={(hexSize) * 17} width={(hexSize * (1.732 / 2)) * 17} unoptimized className='w-auto h-full aspect-auto absolute bottom-0 cursor-pointer pointer-events-none z-0' />
+                <Image src={image} alt={'map tile'} height={(HEXSIZE) * 17} width={(HEXSIZE * (1.732 / 2)) * 17} unoptimized className='w-auto h-full aspect-auto absolute bottom-0 cursor-pointer pointer-events-none z-0' />
             </div>
         </div>
     )

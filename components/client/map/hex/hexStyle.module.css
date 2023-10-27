@@ -1,5 +1,4 @@
 .hexagon {
-
     position: relative;
     width: calc((1.732/2) * var(--hex-size));
     height: var(--hex-size);

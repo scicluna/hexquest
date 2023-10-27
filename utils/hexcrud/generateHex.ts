@@ -1,11 +1,11 @@
 import { auth } from "@clerk/nextjs"
 
-export async function generateHexChunk(userId: string, mapId: string, x: number, y: number) {
+export async function generateHex(userId: string, mapId: string, x: number, y: number) {
     const { getToken } = auth()
     const token = await getToken()
 
     //returns an array of hex objects
-    const chunk = await fetch(`${process.env.URL || ''}/api/maps/${userId}/${mapId}/hexchunk`, {
+    const hex = await fetch(`${process.env.URL || ''}/api/maps/${userId}/${mapId}/hex`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -17,5 +17,5 @@ export async function generateHexChunk(userId: string, mapId: string, x: number,
         })
     })
 
-    return chunk.json()
+    return hex.json()
 }

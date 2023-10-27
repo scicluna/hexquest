@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 import MapClient from "@/components/client/map/MapClient";
 import { getUser } from "@/utils/usercrud/getUser";
 import { getHexes } from "@/utils/hexcrud/getHexes";
-import { generateHexChunk } from "@/utils/hexcrud/generateHexChunk";
+import { generateHex } from "@/utils/hexcrud/generateHex";
 
 type MapProps = {
     params: {
@@ -26,14 +26,14 @@ export default async function Map({ params }: MapProps) {
     if (!userId || user._id !== params.userid) redirect('/sign-in');
 
     //return hexes or []
-    const hexes: HexMap = await getHexes(params.userid, params.mapid);
+    const hexMap: HexMap = await getHexes(params.userid, params.mapid);
 
-    if (hexes.hexChunks.length === 0) {
-        const chunk: HexChunk = await generateHexChunk(params.userid, params.mapid, 0, 0);
-        hexes.hexChunks.push(chunk);
+    if (hexMap.hexes.length === 0) {
+        const hex: Hex = await generateHex(params.userid, params.mapid, 0, 0);
+        hexMap.hexes.push(hex);
     }
 
     return (
-        <MapClient user={user} mapid={params.mapid} hexes={hexes} />
+        <MapClient user={user} mapid={params.mapid} hexMap={hexMap} />
     )
 }
