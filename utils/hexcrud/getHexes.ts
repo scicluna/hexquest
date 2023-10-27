@@ -8,7 +8,8 @@ export async function getHexes(userId: string, mapId: string) {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
-        }
+        },
+        cache: 'no-cache'
     })
 
     return hexes.json()

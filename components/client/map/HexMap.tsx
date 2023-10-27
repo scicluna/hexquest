@@ -1,5 +1,5 @@
 "use client"
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import Hex from "./hex/Hex";
 import { getAdjacentHexes } from "@/utils/hexlogic/getAdjacentHexes";
 import PhantomHex from "./hex/PhantomHex";
@@ -14,7 +14,7 @@ type HexMapProps = {
 
 export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: HexMapProps) {
     const [hexes, setHexes] = useState<Hex[]>(hexMap.hexes);
-    const mapRef = useRef<HTMLDivElement>(null);
+    const firstHexRef = useRef<HTMLDivElement>(null);
     const HEXSIZE = 10 // rems
 
     const hexLookup = useMemo(() => {
@@ -69,10 +69,24 @@ export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: H
         });
     }, [hexes, hexLookup]);
 
+
     const minX = useMemo(() => Math.min(...Array.from(hexLookup.values()).map(hex => hex.position.x)), [hexLookup]);
     const minY = useMemo(() => Math.min(...Array.from(hexLookup.values()).map(hex => hex.position.y)), [hexLookup]);
-    const canvasWidth = 100 + (minX < 0 ? -minX * HEXSIZE : 0);  // If you have a specific HEXSIZE to calculate width.
-    const canvasHeight = 100 + (minY < 0 ? -minY * HEXSIZE : 0); // If you have a specific HEXSIZE to calculate height.
+    const canvasWidth = 100 + (minX < 0 ? -minX * HEXSIZE * 1.44 : 0);  // If you have a specific HEXSIZE to calculate width.
+    const canvasHeight = 100 + (minY < 0 ? -minY * HEXSIZE * 5.15 : 0); // If you have a specific HEXSIZE to calculate height.
+
+    useEffect(() => {
+        if (firstHexRef.current) {
+            const rect = firstHexRef.current.getBoundingClientRect();
+            const scrollX = rect.left - (window.innerWidth / 2) + (HEXSIZE * 1.732 / 2);
+            const scrollY = rect.top - (window.innerHeight / 2) + (HEXSIZE * 1.5);
+            window.scrollTo({
+                top: scrollY,
+                left: scrollX,
+                behavior: 'smooth'
+            });
+        }
+    }, []);
 
     async function addHex(coords: { x: number, y: number }) {
         const hex = await generateHex(hexUser._id, mapid, coords.x, coords.y);
@@ -80,9 +94,12 @@ export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: H
     }
 
     return (
-        <section ref={mapRef} className={`flex justify-center items-center relative`} style={{ width: `${canvasWidth}dvw`, height: `${canvasHeight}dvh` }}>
+        <section className={`flex justify-center items-center relative`} style={{ width: `${canvasWidth}dvw`, height: `${canvasHeight}dvh` }}>
             {hexes.map((hex: Hex, i) => (
-                <Hex key={hex._id} hex={hex} HEXSIZE={HEXSIZE} adjHexes={getAdjacentHexes(hex, hexMap, hexLookup)} />
+                <Hex key={hex._id}
+                    hex={hex} HEXSIZE={HEXSIZE}
+                    adjHexes={getAdjacentHexes(hex, hexMap, hexLookup)}
+                    ref={i === 0 ? firstHexRef : null} />
             ))}
             {phantomHexes.map((hex: { position: { x: number, y: number } }) => (
                 <PhantomHex key={`${hex.position.x},${hex.position.y}`} hex={hex} HEXSIZE={HEXSIZE} addHex={addHex} />
