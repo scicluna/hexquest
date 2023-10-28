@@ -13,10 +13,12 @@ type HexProps = {
     HEXSIZE: number
     adjHexes: AdjacentHexes
     flipHex: (hex: Hex, newTerrain: Terrain, newFeature: string) => void
+    updateHistory: (hex: Hex, newHistory: string) => void
+    deductCredits: (amount: number) => void
 }
 
 export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
-    const { hex, HEXSIZE, adjHexes, flipHex } = props;
+    const { hex, HEXSIZE, adjHexes, flipHex, updateHistory, deductCredits } = props;
 
     const image = getImage(hex);
 
@@ -41,7 +43,10 @@ export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
         >
             <div className='relative h-full w-full point cursor-pointer hover:scale-105 hover:animate-pulse transition-all z-50'>
                 <Image src={image} alt={'map tile'} height={(HEXSIZE) * 17} width={(HEXSIZE * (1.732 / 2)) * 17} unoptimized className='w-auto h-full aspect-auto absolute bottom-0 cursor-pointer pointer-events-none z-0' />
-                {(hex.terrainType !== '?') && <HexWindow hex={hex} img={image} adjHexes={adjHexes} />}
+                {(hex.terrainType !== '?') && <HexWindow hex={hex}
+                    img={image} adjHexes={adjHexes}
+                    updateHistory={updateHistory}
+                    deductCredits={deductCredits} />}
             </div>
         </div>
     )

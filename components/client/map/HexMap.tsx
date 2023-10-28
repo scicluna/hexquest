@@ -82,6 +82,14 @@ export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: H
         await updateHex(hexUser._id, hexMap._id, hex._id, updatedHex);
     }
 
+    async function updateHistory(hex: Hex, newHistory: string) {
+        const updatedHex = hexes.filter(h => h._id === hex._id)[0];
+        updatedHex.history.push(newHistory);
+        setHexes([...hexes.filter(h => h._id !== hex._id), updatedHex]);
+
+        await updateHex(hexUser._id, hexMap._id, hex._id, updatedHex);
+    }
+
     return (
         <section className={`flex justify-center items-center relative`} style={{ width: `${canvasWidth}dvw`, height: `${canvasHeight}dvh` }}>
             {hexes.map((hex: Hex, i) => (
@@ -89,10 +97,13 @@ export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: H
                     hex={hex} HEXSIZE={HEXSIZE}
                     adjHexes={getAdjacentHexes(hex, hexLookup)}
                     flipHex={flipHex}
+                    deductCredits={deductCredits}
+                    updateHistory={updateHistory}
                     ref={i === 0 ? firstHexRef : null} />
             ))}
             {phantomHexes.map((hex: { position: { x: number, y: number } }) => (
-                <PhantomHex key={`${hex.position.x},${hex.position.y}`} hex={hex} HEXSIZE={HEXSIZE} addHex={addHex} />
+                <PhantomHex key={`${hex.position.x},${hex.position.y}`}
+                    hex={hex} HEXSIZE={HEXSIZE} addHex={addHex} />
             ))}
         </section>
     )
