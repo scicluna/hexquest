@@ -1,5 +1,4 @@
 import Hex from "@/models/Hex";
-import Map from "@/models/Map";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 

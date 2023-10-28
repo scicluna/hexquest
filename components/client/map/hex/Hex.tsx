@@ -5,6 +5,7 @@ import Image from 'next/image'
 import React, { ForwardedRef } from 'react'
 import { generateTerrain } from '@/utils/hexlogic/generateTerrain'
 import { generateFeature } from '@/utils/hexlogic/generateFeature'
+import HexWindow from './HexWindow'
 
 
 type HexProps = {
@@ -40,6 +41,7 @@ export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
         >
             <div className='relative h-full w-full point cursor-pointer hover:scale-105 hover:animate-pulse transition-all z-50'>
                 <Image src={image} alt={'map tile'} height={(HEXSIZE) * 17} width={(HEXSIZE * (1.732 / 2)) * 17} unoptimized className='w-auto h-full aspect-auto absolute bottom-0 cursor-pointer pointer-events-none z-0' />
+                {(hex.terrainType !== '?') && <HexWindow hex={hex} img={image} adjHexes={adjHexes} />}
             </div>
         </div>
     )
