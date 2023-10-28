@@ -10,7 +10,7 @@ type HexProps = {
     adjHexes: AdjacentHexes
 }
 
-const Hex = React.forwardRef<HTMLDivElement, HexProps>((props, ref) => {
+export function Hex(props: HexProps, ref: React.ForwardedRef<HTMLDivElement>) {
     const { hex, HEXSIZE, adjHexes } = props;
 
     const image = getImage(hex);
@@ -29,6 +29,5 @@ const Hex = React.forwardRef<HTMLDivElement, HexProps>((props, ref) => {
             </div>
         </div>
     )
-});
-
-export default Hex;
+};
+export default React.forwardRef<HTMLDivElement, HexProps>(Hex);
