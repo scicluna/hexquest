@@ -26,3 +26,20 @@ export async function POST() {
 
     return new Response(JSON.stringify(newUser), { status: 200 })
 }
+
+export async function PUT(req: Request) {
+    connectToDB();
+    const { userId } = auth();
+    if (!userId) return NextResponse.redirect('/sign-in');
+
+    const body = await req.json();
+    const { id, email, credits, apiKey } = body;
+
+    const user = await User.findByIdAndUpdate(id, {
+        email,
+        credits,
+        apiKey
+    }, { new: true });
+
+    return new Response(JSON.stringify(user), { status: 200 })
+}

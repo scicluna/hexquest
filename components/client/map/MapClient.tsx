@@ -3,6 +3,7 @@
 import { UserButton } from "@clerk/nextjs"
 import { useState } from "react"
 import HexMap from "./HexMap"
+import { updateUser } from "@/utils/usercrud/updateUser"
 
 type MapClientProps = {
     user: HexUser
@@ -13,9 +14,10 @@ type MapClientProps = {
 export default function MapClient({ user, mapid, hexMap }: MapClientProps) {
     const [credits, setCredits] = useState(user.credits);
 
-    function deductCredits(amt: number) {
+    async function deductCredits(amt: number) {
         setCredits(credits - amt);
-        //Some kind of DB call to handle credit change
+        user.credits = user.credits - amt;
+        await updateUser(user);
     }
 
     return (

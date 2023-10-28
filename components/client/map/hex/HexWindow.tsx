@@ -26,8 +26,8 @@ export default function HexWindow({ hex, img, adjHexes, updateHistory, deductCre
     const chatContainer = useRef<HTMLDivElement>(null)
     const { messages, input, handleInputChange, handleSubmit, isLoading, data } = useChat({
         onFinish: (async (message: Message) => {
-            // updateHistory
-            // deductCredits
+            updateHistory(hex, message.content);
+            deductCredits(1);
         })
     })
 
@@ -78,7 +78,7 @@ export default function HexWindow({ hex, img, adjHexes, updateHistory, deductCre
                         name="prompt"
                         placeholder='Prompt the AI'
                     />
-                    <button className=' disabled:bg-red-500 bg-purple-600 dark:text-gray-100 dark:bg-purple-950 px-4 py-2 rounded-full hover:bg-purple-500 hover:dark:bg-purple-800' type="submit" disabled={isLoading || hexUser.credits <= 0}>Send</button>
+                    <button className=' bg-purple-600 dark:text-gray-100 dark:bg-purple-950 px-4 py-2 rounded-full hover:bg-purple-500 hover:dark:bg-purple-800' type="submit" disabled={isLoading || hexUser.credits <= 0}>Send</button>
                 </form>
             </DialogContent>
         </Dialog >
