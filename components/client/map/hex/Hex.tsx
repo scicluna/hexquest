@@ -15,10 +15,11 @@ type HexProps = {
     flipHex: (hex: Hex, newTerrain: Terrain, newFeature: string) => void
     updateHistory: (hex: Hex, newHistory: string) => void
     deductCredits: (amount: number) => void
+    hexUser: HexUser
 }
 
 export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
-    const { hex, HEXSIZE, adjHexes, flipHex, updateHistory, deductCredits } = props;
+    const { hex, HEXSIZE, adjHexes, flipHex, updateHistory, deductCredits, hexUser } = props;
 
     const image = getImage(hex);
 
@@ -46,7 +47,8 @@ export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
                 {(hex.terrainType !== '?') && <HexWindow hex={hex}
                     img={image} adjHexes={adjHexes}
                     updateHistory={updateHistory}
-                    deductCredits={deductCredits} />}
+                    deductCredits={deductCredits}
+                    hexUser={hexUser} />}
             </div>
         </div>
     )

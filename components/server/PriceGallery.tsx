@@ -15,10 +15,10 @@ export default function PriceGallery() {
                     <CardTitle>Novice</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p>100 credits</p>
+                    <p>100 credits (or 100 prompts)</p>
                 </CardContent>
                 <CardFooter>
-                    <p>$5</p>
+                    <p>$10</p>
                 </CardFooter>
             </Card>
 
@@ -27,10 +27,10 @@ export default function PriceGallery() {
                     <CardTitle>Adventurer</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p>300 credits</p>
+                    <p>300 credits</p> (or 300 prompts)
                 </CardContent>
                 <CardFooter>
-                    <p>$12.50</p>
+                    <p>$28</p>
                 </CardFooter>
             </Card>
 
@@ -39,10 +39,10 @@ export default function PriceGallery() {
                     <CardTitle>Legend</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p>500 credits</p>
+                    <p>500 credits</p> (or 500 prompts)
                 </CardContent>
                 <CardFooter>
-                    <p>$22.00</p>
+                    <p>$45</p>
                 </CardFooter>
             </Card>
         </div>

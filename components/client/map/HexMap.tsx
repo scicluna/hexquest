@@ -99,6 +99,7 @@ export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: H
                     flipHex={flipHex}
                     deductCredits={deductCredits}
                     updateHistory={updateHistory}
+                    hexUser={hexUser}
                     ref={i === 0 ? firstHexRef : null} />
             ))}
             {phantomHexes.map((hex: { position: { x: number, y: number } }) => (

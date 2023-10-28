@@ -12,17 +12,19 @@ import Image, { StaticImageData } from "next/image";
 import { useEffect, useRef } from "react";
 
 
+
 type HexWindowProps = {
     hex: Hex
     img: StaticImageData
     adjHexes: AdjacentHexes
     updateHistory: (hex: Hex, newHistory: string) => void
     deductCredits: (amount: number) => void
+    hexUser: HexUser
 }
 
-export default function HexWindow({ hex, img, adjHexes, updateHistory, deductCredits }: HexWindowProps) {
+export default function HexWindow({ hex, img, adjHexes, updateHistory, deductCredits, hexUser }: HexWindowProps) {
     const chatContainer = useRef<HTMLDivElement>(null)
-    const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    const { messages, input, handleInputChange, handleSubmit, isLoading, data } = useChat({
         onFinish: (async (message: Message) => {
             // updateHistory
             // deductCredits
@@ -49,7 +51,7 @@ export default function HexWindow({ hex, img, adjHexes, updateHistory, deductCre
                     <DialogDescription>Hex: {hex.position.x} {hex.position.y}</DialogDescription>
                     <DialogDescription>Feature: {hex.feature}</DialogDescription>
                 </div>
-                <div ref={chatContainer} className="h-full bg-black rounded-xl p-2">
+                <div ref={chatContainer} className="h-full overflow-y-auto bg-black bg-opacity-30 rounded-xl p-2 z-50">
                     {hex.history.map((history, i) => (
                         <DialogDescription key={`${hex.position.x}x${hex.position.y}x${i}`} className="border border-b-black border-b-2">{history}</DialogDescription>
                     ))}
@@ -76,7 +78,7 @@ export default function HexWindow({ hex, img, adjHexes, updateHistory, deductCre
                         name="prompt"
                         placeholder='Prompt the AI'
                     />
-                    <button className=' bg-purple-600 dark:text-gray-100 dark:bg-purple-950 px-4 py-2 rounded-full hover:bg-purple-500 hover:dark:bg-purple-800' type="submit" disabled={isLoading}>Send</button>
+                    <button className=' disabled:bg-red-500 bg-purple-600 dark:text-gray-100 dark:bg-purple-950 px-4 py-2 rounded-full hover:bg-purple-500 hover:dark:bg-purple-800' type="submit" disabled={isLoading || hexUser.credits <= 0}>Send</button>
                 </form>
             </DialogContent>
         </Dialog >
