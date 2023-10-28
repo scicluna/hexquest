@@ -2,29 +2,29 @@ import { AdjacentHexes } from '@/utils/hexlogic/getAdjacentHexes'
 import style from './hexStyle.module.css'
 import { getImage } from '@/utils/hexlogic/getImage'
 import Image from 'next/image'
-import React, { ForwardedRef, useState } from 'react'
+import React, { ForwardedRef } from 'react'
 import { generateTerrain } from '@/utils/hexlogic/generateTerrain'
+import { generateFeature } from '@/utils/hexlogic/generateFeature'
 
 
 type HexProps = {
     hex: Hex
     HEXSIZE: number
     adjHexes: AdjacentHexes
-    flipHex: (hex: Hex, newTerrain: Terrain) => void
+    flipHex: (hex: Hex, newTerrain: Terrain, newFeature: string) => void
 }
 
 export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
-    const [flipped, setFlipped] = useState(false);
     const { hex, HEXSIZE, adjHexes, flipHex } = props;
 
     const image = getImage(hex);
 
     function terrainFlip() {
-        if (flipped) return;
+        if (hex.terrainType !== '?') return;
 
         const newTerrain = generateTerrain(hex, adjHexes);
-        setFlipped(true);
-        flipHex(hex, newTerrain);
+        const newFeature = generateFeature(newTerrain);
+        flipHex(hex, newTerrain, newFeature);
     }
 
     return (

@@ -155,10 +155,6 @@ export function generateTerrain(hex: Hex, adjHexes: AdjacentHexes) {
         }
     })
 
-
-    console.log(adjHexes)
-    console.log(weights)
-
     return weightedRandom(weights) as Terrain;
 }
 
