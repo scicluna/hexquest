@@ -9,7 +9,6 @@ export type AdjacentHexes = {
 
 export function getAdjacentHexes(
     currentHex: Hex,
-    hexMap: HexMap,
     hexLookup: Map<string, Hex>
 ): AdjacentHexes {
     const { x, y } = currentHex.position;

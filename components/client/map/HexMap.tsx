@@ -4,6 +4,8 @@ import Hex from "./hex/Hex";
 import { getAdjacentHexes } from "@/utils/hexlogic/getAdjacentHexes";
 import PhantomHex from "./hex/PhantomHex";
 import { generateHex } from "@/utils/hexcrud/generateHex";
+import { getAdjacentDirections } from "@/utils/hexlogic/getAdjacentDirections";
+import { updateHex } from "@/utils/hexcrud/updateHex";
 
 type HexMapProps = {
     hexUser: HexUser
@@ -26,32 +28,10 @@ export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: H
     }, [hexes]);
 
     const phantomHexes = useMemo(() => {
-        const getAdjDirections = (y: number) => {
-            if (y % 2 === 0) {
-                return [
-                    { x: -0.5, y: -0.5 }, // Above left for even rows
-                    { x: +0.5, y: -0.5 }, // Above right for even rows
-                    { x: 1, y: 0 },  // Directly to the right
-                    { x: -1, y: 0 },  // Directly to the left
-                    { x: -0.5, y: 0.5 }, // Below left for even rows
-                    { x: 0.5, y: 0.5 } // Below right for even rows
-                ];
-            } else {
-                return [
-                    { x: +0.5, y: -0.5 }, // Above right for odd rows
-                    { x: -0.5, y: -0.5 }, // Above left for odd rows
-                    { x: 1, y: 0 },  // Directly to the right
-                    { x: -1, y: 0 },  // Directly to the left
-                    { x: 0.5, y: 0.5 }, // Below right for odd rows
-                    { x: -0.5, y: 0.5 } // Below left for odd rows
-                ];
-            }
-        };
-
         const potentialPhantomHexes = new Set<string>();
 
         hexes.forEach(hex => {
-            const adjDirections = getAdjDirections(hex.position.y);
+            const adjDirections = getAdjacentDirections(hex.position.y);
 
             adjDirections.forEach(dir => {
                 const adjX = hex.position.x + dir.x;
@@ -72,8 +52,8 @@ export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: H
 
     const minX = useMemo(() => Math.min(...Array.from(hexLookup.values()).map(hex => hex.position.x)), [hexLookup]);
     const minY = useMemo(() => Math.min(...Array.from(hexLookup.values()).map(hex => hex.position.y)), [hexLookup]);
-    const canvasWidth = 100 + (minX < 0 ? -minX * HEXSIZE * 1.44 : 0);  // If you have a specific HEXSIZE to calculate width.
-    const canvasHeight = 100 + (minY < 0 ? -minY * HEXSIZE * 5.15 : 0); // If you have a specific HEXSIZE to calculate height.
+    const canvasWidth = 100 + (minX < 0 ? -minX * HEXSIZE * 1.44 : 0);  // 1.44 is a magic number. idk why it works.
+    const canvasHeight = 100 + (minY < 0 ? -minY * HEXSIZE * 5.15 : 0); // 5.15 is a magic number. idk why it works.
 
     useEffect(() => {
         if (firstHexRef.current) {
@@ -93,12 +73,20 @@ export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: H
         setHexes([...hexes, hex]);
     }
 
+    async function flipHex(hex: Hex, newTerrain: Terrain) {
+        const updatedHex = hexes.filter(h => h._id === hex._id)[0];
+        updatedHex.terrainType = newTerrain;
+        setHexes([...hexes.filter(h => h._id !== hex._id), updatedHex]);
+
+        await updateHex(hexUser._id, hexMap._id, hex._id, updatedHex);
+    }
+
     return (
         <section className={`flex justify-center items-center relative`} style={{ width: `${canvasWidth}dvw`, height: `${canvasHeight}dvh` }}>
             {hexes.map((hex: Hex, i) => (
                 <Hex key={hex._id}
                     hex={hex} HEXSIZE={HEXSIZE}
-                    adjHexes={getAdjacentHexes(hex, hexMap, hexLookup)}
+                    adjHexes={getAdjacentHexes(hex, hexLookup)}
                     ref={i === 0 ? firstHexRef : null} />
             ))}
             {phantomHexes.map((hex: { position: { x: number, y: number } }) => (

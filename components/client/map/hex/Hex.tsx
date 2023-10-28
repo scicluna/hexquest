@@ -2,7 +2,8 @@ import { AdjacentHexes } from '@/utils/hexlogic/getAdjacentHexes'
 import style from './hexStyle.module.css'
 import { getImage } from '@/utils/hexlogic/getImage'
 import Image from 'next/image'
-import React from 'react'
+import React, { ForwardedRef, useState } from 'react'
+
 
 type HexProps = {
     hex: Hex
@@ -10,7 +11,8 @@ type HexProps = {
     adjHexes: AdjacentHexes
 }
 
-export function Hex(props: HexProps, ref: React.ForwardedRef<HTMLDivElement>) {
+export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
+    const [flipped, setFlipped] = useState(false);
     const { hex, HEXSIZE, adjHexes } = props;
 
     const image = getImage(hex);

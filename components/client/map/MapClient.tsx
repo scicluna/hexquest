@@ -20,7 +20,7 @@ export default function MapClient({ user, mapid, hexMap }: MapClientProps) {
 
     return (
         <main className="">
-            <div className="fixed top-2 right-2 flex gap-4 items-center dark:text-white">
+            <div className="fixed top-2 right-2 flex gap-4 items-center dark:text-white z-50">
                 {!user.apiKey && <p>Credits: {credits}</p>}
                 <UserButton />
             </div>

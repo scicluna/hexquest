@@ -16,10 +16,12 @@ type HexMap = {
 type Hex = {
     _id: string
     history: string[]
-    terrainType: 'M' | 'F' | 'P' | 'C' | 'O' | 'L' | 'H' | 'D' | 'J' | 'Ma' | '?'
+    terrainType: Terrain
     feature: string
     position: {
         x: number
         y: number
     }
 }
+
+type Terrain = 'M' | 'F' | 'P' | 'C' | 'O' | 'L' | 'H' | 'D' | 'J' | 'Ma' | '?'
