@@ -87,6 +87,7 @@ export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: H
                 <Hex key={hex._id}
                     hex={hex} HEXSIZE={HEXSIZE}
                     adjHexes={getAdjacentHexes(hex, hexLookup)}
+                    flipHex={flipHex}
                     ref={i === 0 ? firstHexRef : null} />
             ))}
             {phantomHexes.map((hex: { position: { x: number, y: number } }) => (
