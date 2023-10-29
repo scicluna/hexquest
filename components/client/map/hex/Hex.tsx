@@ -20,15 +20,16 @@ type HexProps = {
 
 export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
     const { hex, HEXSIZE, adjHexes, flipHex, updateHistory, deductCredits, hexUser } = props;
+    const [isFlipped, setIsflipped] = React.useState(hex.terrainType !== '?');
 
     const image = getImage(hex);
 
     function terrainFlip() {
         if (hex.terrainType !== '?') return;
-
         const newTerrain = generateTerrain(hex, adjHexes);
         const newFeature = generateFeature(newTerrain);
         flipHex(hex, newTerrain, newFeature);
+        setIsflipped(true);
     }
 
     return (
@@ -39,16 +40,11 @@ export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
                 top: `calc(50% + ${HEXSIZE * hex.position.y * 1.5}rem)`,
                 left: `calc(50% + ${HEXSIZE * hex.position.x * .5 * 1.732}rem)`,
             } as React.CSSProperties}
-            className={`${style.hexagon} z-50 pointer-events-auto absolute`}
-            onClick={terrainFlip}
-        >
-            <div className='relative h-full w-full point cursor-pointer hover:scale-105 hover:animate-pulse transition-all z-50'>
+            className={`${style.hexagon} ${isFlipped ? style.flipped : style.new} z-50 pointer-events-auto cursor-pointer absolute hover:brightness-125`}
+            onClick={terrainFlip}>
+            <div className={`${hex.terrainType === '?' ? style.back : style.front} relative h-full w-full} `}>
                 <Image src={image} alt={'map tile'} height={(HEXSIZE) * 17} width={(HEXSIZE * (1.732 / 2)) * 17} unoptimized className='w-auto h-full aspect-auto absolute bottom-0 cursor-pointer pointer-events-none z-0' />
-                {(hex.terrainType !== '?') && <HexWindow hex={hex}
-                    img={image} adjHexes={adjHexes}
-                    updateHistory={updateHistory}
-                    deductCredits={deductCredits}
-                    hexUser={hexUser} />}
+                {(hex.terrainType !== '?') && <HexWindow hex={hex} img={image} adjHexes={adjHexes} updateHistory={updateHistory} deductCredits={deductCredits} hexUser={hexUser} />}
             </div>
         </div>
     )

@@ -3,8 +3,6 @@ import {
     Dialog,
     DialogContent,
     DialogDescription,
-    DialogHeader,
-    DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Message, useChat } from "ai/react";
@@ -31,6 +29,7 @@ export default function HexWindow({ hex, img, adjHexes, updateHistory, deductCre
         })
     })
 
+    //not currently working properly.
     useEffect(() => {
         if (!chatContainer.current) return;
         const { scrollHeight } = chatContainer.current;
@@ -78,7 +77,8 @@ export default function HexWindow({ hex, img, adjHexes, updateHistory, deductCre
                         name="prompt"
                         placeholder='Prompt the AI'
                     />
-                    <button className=' bg-purple-600 dark:text-gray-100 dark:bg-purple-950 px-4 py-2 rounded-full hover:bg-purple-500 hover:dark:bg-purple-800' type="submit" disabled={isLoading || hexUser.credits <= 0}>Send</button>
+                    <button className=' bg-purple-600 dark:text-gray-100 dark:bg-purple-950 px-4 py-2 rounded-full hover:bg-purple-500 hover:dark:bg-purple-800'
+                        type="submit" disabled={isLoading || hexUser.credits <= 0}>Send</button>
                 </form>
             </DialogContent>
         </Dialog >

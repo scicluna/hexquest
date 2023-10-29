@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
     const outputParser = new BytesOutputParser();
     const chain = prompt.pipe(model).pipe(outputParser);
 
-    let ruleSet = "You are a dungeon master's assistant. Each hex should be unique and have an encounter within them. You can use the surrounding hexes for context. respond with terse bullet points"
+    let ruleSet = "You are a dungeon master's assistant providing context and flavour to each hex. Each hex should be unique and have an encounter within them. You should strive to use the surrounding hexes for context. respond with terse bullet points"
 
     const stream = await chain.stream({
         rules: ruleSet,

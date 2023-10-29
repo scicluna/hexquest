@@ -14,7 +14,7 @@ export async function generateHex(userId: string, mapId: string, x: number, y: n
         },
         body: JSON.stringify({
             x,
-            y
+            y 
         })
     })
 

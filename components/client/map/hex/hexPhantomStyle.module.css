@@ -4,7 +4,10 @@
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     margin: 1px;
     border: transparent;
-    background-color: white;
+    background-color: black;
+    /* a slight white tint to indicate it's clickable */
+    border: 1px dashed black;
+    /* a dashed border can also help */
 }
 
 .hexagon:hover {
