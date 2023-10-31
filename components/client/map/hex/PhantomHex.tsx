@@ -16,7 +16,7 @@ export default function PhantomHex({ hex, HEXSIZE, addHex }: HexProps) {
             top: `calc(${top}rem)`,
             left: `calc(${left}rem)`,
         } as React.CSSProperties}
-            className={`${style.hexagon} z-50 pointer-events-auto absolute`}
+            className={`${style.hexagon} z-40 pointer-events-auto absolute`}
             onClick={() => addHex(hex.position)}>
         </div>
     )
