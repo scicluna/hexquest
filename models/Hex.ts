@@ -17,6 +17,10 @@ const HexSchema = new mongoose.Schema({
     position: {
         x: { type: Number, required: true },
         y: { type: Number, required: true }
+    },
+    location: {
+        type: { type: String, enum: ['Dungeon', 'Town', 'none'], required: false },
+        name: String
     }
 })
 

@@ -17,6 +17,7 @@ export async function updateHex(userId: string, mapId: string, hexId: string, up
             terrainType: updatedHex.terrainType,
             feature: updatedHex.feature,
             history: updatedHex.history,
+            location: updatedHex.location,
             hexId: hexId
         })
     })

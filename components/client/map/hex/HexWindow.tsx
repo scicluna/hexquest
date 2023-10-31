@@ -49,6 +49,7 @@ export default function HexWindow({ hex, img, adjHexes, updateHistory, deductCre
                 <div className="flex flex-col">
                     <DialogDescription>Hex: {hex.position.x} {hex.position.y}</DialogDescription>
                     <DialogDescription>Feature: {hex.feature}</DialogDescription>
+                    {hex.location.type !== 'none' && (<DialogDescription>{hex.location.type === 'Town' ? 'Town:' : 'Dungeon:'} {hex.location.name}</DialogDescription>)}
                 </div>
                 <div ref={chatContainer} className="h-full overflow-y-auto bg-black bg-opacity-30 rounded-xl p-2 z-50">
                     {hex.history.map((history, i) => (

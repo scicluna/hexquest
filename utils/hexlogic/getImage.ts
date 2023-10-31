@@ -1,4 +1,4 @@
-import { forests, hills, mountains, oceans, plains, clouds, coasts, deserts, jungles, lakes, marshes } from '@/public/imageLib'
+import { dungeons, towns, forests, hills, mountains, oceans, plains, clouds, coasts, deserts, jungles, lakes, marshes } from '@/public/imageLib'
 
 export function getImage(hex: Hex) {
     const char = hex.terrainType
@@ -35,6 +35,20 @@ export function getImage(hex: Hex) {
         }
         default: {
             return clouds[Math.floor(Math.random() * clouds.length)]
+        }
+    }
+}
+
+export function getLocationImage(locationType: string) {
+    switch (locationType) {
+        case "Dungeon": {
+            return dungeons[Math.floor(Math.random() * dungeons.length)]
+        }
+        case "Town": {
+            return towns[Math.floor(Math.random() * towns.length)]
+        }
+        default: {
+            return null
         }
     }
 }

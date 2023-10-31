@@ -6,13 +6,15 @@ import React, { ForwardedRef } from 'react'
 import { generateTerrain } from '@/utils/hexlogic/generateTerrain'
 import { generateFeature } from '@/utils/hexlogic/generateFeature'
 import HexWindow from './HexWindow'
+import { generateLocation } from '@/utils/hexlogic/generateLocation'
+import HexIcon from './HexIcon'
 
 
 type HexProps = {
     hex: Hex
     HEXSIZE: number
     adjHexes: AdjacentHexes
-    flipHex: (hex: Hex, newTerrain: Terrain, newFeature: string) => void
+    flipHex: (hex: Hex, newTerrain: HexTerrain, newFeature: string, newLocation: HexLocation) => void
     updateHistory: (hex: Hex, newHistory: string) => void
     deductCredits: (amount: number) => void
     hexUser: HexUser
@@ -28,7 +30,8 @@ export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
         if (hex.terrainType !== '?') return;
         const newTerrain = generateTerrain(hex, adjHexes);
         const newFeature = generateFeature(newTerrain);
-        flipHex(hex, newTerrain, newFeature);
+        const newLocation = generateLocation(newTerrain, adjHexes);
+        flipHex(hex, newTerrain, newFeature, newLocation);
         setIsflipped(true);
     }
 
@@ -40,8 +43,9 @@ export function Hex(props: HexProps, ref: ForwardedRef<HTMLDivElement>) {
                 top: `calc(50% + ${HEXSIZE * hex.position.y * 1.5}rem)`,
                 left: `calc(50% + ${HEXSIZE * hex.position.x * .5 * 1.732}rem)`,
             } as React.CSSProperties}
-            className={`${style.hexagon} ${isFlipped ? style.flipped : style.new} z-50 pointer-events-auto cursor-pointer absolute hover:brightness-125`}
+            className={`${style.hexagon} ${isFlipped ? style.flipped : style.new} z-40 pointer-events-auto cursor-pointer absolute hover:brightness-125`}
             onClick={terrainFlip}>
+            {(hex.location.type !== 'none') && <HexIcon iconName={hex.location.name} iconType={hex.location.type} />}
             <div className={`${hex.terrainType === '?' ? style.back : style.front} relative h-full w-full} `}>
                 <Image src={image} alt={'map tile'} height={(HEXSIZE) * 17} width={(HEXSIZE * (1.732 / 2)) * 17} unoptimized className='w-auto h-full aspect-auto absolute bottom-0 cursor-pointer pointer-events-none z-0' />
                 {(hex.terrainType !== '?') && <HexWindow hex={hex} img={image} adjHexes={adjHexes} updateHistory={updateHistory} deductCredits={deductCredits} hexUser={hexUser} />}

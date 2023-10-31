@@ -2,7 +2,7 @@ import { coastAdjectives, desertAdjectives, forestAdjectives, hillAdjectives, ju
 import { coastNouns, desertNouns, forestNouns, hillNouns, jungleNouns, lakeNouns, marshNouns, mountainNouns, oceanNouns, plainsNouns } from '@/public/featurecombos/featurenouns'
 
 
-export function generateFeature(terrain: Terrain): string {
+export function generateFeature(terrain: HexTerrain): string {
 
     switch (terrain) {
         case 'C': {

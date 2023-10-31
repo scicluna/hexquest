@@ -73,10 +73,12 @@ export default function HexMapStage({ hexUser, mapid, hexMap, deductCredits }: H
         setHexes([...hexes, hex]);
     }
 
-    async function flipHex(hex: Hex, newTerrain: Terrain, newFeature: string) {
+    async function flipHex(hex: Hex, newTerrain: HexTerrain, newFeature: string, newLocation: HexLocation) {
         const updatedHex = hexes.filter(h => h._id === hex._id)[0];
         updatedHex.terrainType = newTerrain;
         updatedHex.feature = newFeature;
+        updatedHex.location.type = newLocation.type;
+        updatedHex.location.name = newLocation.name;
         setHexes([...hexes.filter(h => h._id !== hex._id), updatedHex]);
 
         await updateHex(hexUser._id, hexMap._id, hex._id, updatedHex);

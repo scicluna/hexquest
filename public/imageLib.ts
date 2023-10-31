@@ -9,6 +9,8 @@ import marsh1 from '@/public/tiles/marshes/marsh1.jpg'
 import mountain1 from '@/public/tiles/mountains/mountain1.webp'
 import ocean1 from '@/public/tiles/oceans/ocean1.webp'
 import plains1 from '@/public/tiles/plains/plain1.webp'
+import dungeon1 from '@/public/icons/dungeon.png'
+import town1 from '@/public/icons/town.png'
 
 export const clouds = [cloud1]
 export const coasts = [coast1]
@@ -21,3 +23,5 @@ export const marshes = [marsh1]
 export const mountains = [mountain1]
 export const oceans = [ocean1]
 export const plains = [plains1]
+export const dungeons = [dungeon1]
+export const towns = [town1]

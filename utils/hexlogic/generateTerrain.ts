@@ -155,10 +155,10 @@ export function generateTerrain(hex: Hex, adjHexes: AdjacentHexes) {
         }
     })
 
-    return weightedRandom(weights) as Terrain;
+    return weightedRandom(weights) as HexTerrain;
 }
 
-function weightedRandom(weights: Record<string, number>) {
+export function weightedRandom(weights: Record<string, number>) {
     // Calculate total weight
     const totalWeight = Object.values(weights).reduce((acc, curr) => acc + curr, 0);
 

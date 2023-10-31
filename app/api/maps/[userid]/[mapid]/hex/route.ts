@@ -16,6 +16,10 @@ export async function POST(req: Request, { params }: { params: { userid: string,
         position: {
             x: body.x,
             y: body.y
+        },
+        location: {
+            type: "none",
+            name: "none"
         }
     });
 
@@ -27,7 +31,7 @@ export async function PUT(req: Request, { params }: { params: { userid: string, 
     if (!userId) return NextResponse.redirect('/sign-in');
 
     const body = await req.json();
-    const { x, y, terrainType, feature, history, hexId } = body;
+    const { x, y, terrainType, feature, history, location, hexId } = body;
 
     const hex = await Hex.findOneAndUpdate({ _id: hexId }, {
         position: {
@@ -36,7 +40,8 @@ export async function PUT(req: Request, { params }: { params: { userid: string, 
         },
         terrainType,
         feature,
-        history
+        history,
+        location
     }, { new: true });
 
     return new Response(JSON.stringify(hex), { status: 200 })
